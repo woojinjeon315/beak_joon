@@ -123,3 +123,69 @@ void main() {
 	printf("%d", maze_movement_count);
 	printf("개 입니다.");
 }
+
+
+#include <stdio.h>
+
+int x_size;
+int y_size;
+
+int maze[100][100];
+int maze_movement_count = 0;
+
+void maze_reset() {
+	for (int y_t = 0; y_t < 100; y_t++) {
+		for(int x_t = 0; x_t < 100; x_t++) {
+			maze[y_t][x_t] = 3;
+		}
+	}
+}
+
+void input() {
+
+	scanf_s("%d", &y_size);
+	scanf_s("%d", &x_size);
+
+	for (int y_t = 0; y_t < y_size; y_t++) {
+		for (int x_t = 0; x_t < x_size; x_t++) {
+			scanf_s("%d", &maze[y_t][x_t]);
+		}
+	}
+}
+
+void play_maze() {
+	int x = 0;
+	int y = 0;
+	//int maze_route*[2];
+	// 한칸 아래
+	while (!(x == x_size - 1 && y == y_size - 1)) {
+		if (y + 1 < y_size && maze[y + 1][x] == 1) {
+			y += 1;
+		}
+		else if (x + 1 < x_size && maze[y][x + 1] == 1) {
+			x += 1;
+		}
+		else if (x - 1 < x_size && maze[y][x - 1] == 1) {
+			x -= 1;
+		}
+		else if (y - 1 < y_size && maze[y - 1][x] == 1) {
+			y -= 1;
+		}
+		else {
+			printf("error");
+		}
+		maze_movement_count += 1;
+		printf("%d", x);
+		printf("%d", y);
+		printf("\n");
+	}
+}
+
+void main() {
+	maze_reset();
+	input();
+	play_maze();
+	printf("이동한 칸의 개수는");
+	printf("%d", maze_movement_count);
+	printf("개 입니다.");
+}
