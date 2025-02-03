@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+
+int max_n = 1000; // 세로
+int max_m = 1000; // 가로
+
+int n = 0;
+int m = 0;
+
+int arr[1000][1000];
+int repetition = 0;
+
+int finish_tomato = 0;
+
+void arr_intput() {
+	int input = 0;
+	scanf_s("%d %d", &m, &n);
+	while (repetition <= 3)
+	for (int m_turn = 0; m_turn < max_m; m_turn++) {
+		for (int n_turn = 0; n_turn < max_n; n_turn++) {
+			if (repetition == 0) {
+				scanf_s("%d", &input);
+				arr[n_turn][m_turn] = input;
+			}
+			if (repetition == 1 && ) {
+
+			}
+		}
+	}
+
+
+}
