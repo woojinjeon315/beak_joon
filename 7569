@@ -30,3 +30,74 @@ void arr_intput() {
 
 
 }
+
+
+#include <stdio.h>
+
+
+int max_n = 1000; // 세로
+int max_m = 1000; // 가로
+
+int n = 0;
+int m = 0;
+
+int arr[1000][1000];
+int repetition = 0;
+
+int finish_tomato = 0;
+
+void main() {
+	int t_count = 0;
+	int box_size = m * n;
+	int stop = 0;
+	int input = 0;
+
+	puts("m 입력");
+	scanf_s("%d", &m);
+	puts("n 입력");
+	scanf_s("%d", &n);
+
+	for (int m_turn = 0; m_turn < m; m_turn++) { // 배열 초기화
+		for (int n_turn = 0; n_turn < n; n_turn++) {
+			arr[n_turn][m_turn] = 2;
+		}
+	}
+
+	while (stop == 0) {
+		for (int m_turn = 0; m_turn < m; m_turn++) {
+			for (int n_turn = 0; n_turn < n; n_turn++) {
+				if (repetition == 0) {
+					puts("번호 입력");
+					scanf_s("%d", &input);
+					arr[n_turn][m_turn] = input;
+				}
+				if (repetition >= 1 && arr[n_turn][m_turn] == 0) {
+					if (m_turn >= 1 && arr[n_turn][m_turn - 1] == 1) {
+						arr[n_turn][m_turn] = 1;
+					}
+					if (n_turn >= 1 && arr[n_turn - 1][m_turn] == 1) {
+						arr[n_turn][m_turn] = 1;
+					}
+					if (m_turn + 1 <= m && arr[n_turn][m_turn + 1] == 1) {
+						arr[n_turn][m_turn] = 1;
+					}
+					if (n_turn + 1 <= n && arr[n_turn + 1][m_turn] == 1) {
+						arr[n_turn][m_turn] = 1;
+					}
+					t_count += 1;
+				}
+			}
+		}
+		if (t_count == 0) {
+			stop = 1;
+		}
+		t_count = 0;
+		repetition += 1;
+	}
+	printf("%d",repetition);
+}
+
+//3 3
+//1 0 0
+// 000
+//000
