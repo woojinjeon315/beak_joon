@@ -255,5 +255,79 @@ void main() {
 	}
 }
 
+#include <stdio.h>
+
+
+int max_n = 100; // 세로
+int max_m = 100; // 가로
+int max_h = 100; // 가로
+
+
+int n = 0;
+int m = 0;
+int h = 0;
+
+int arr[100][100][100];
+int repetition = 0;
+
+int finish_tomato = 0;
+
+void main() {
+	int t_count = 0;
+	int last_t_count = 0;
+	int box_size = m * n;
+	int stop = 0;
+	int input = 0;
+	int day_count = 0;
+
+	puts("m 입력\n");
+	scanf_s("%d", &m);
+
+	puts("n 입력\n");
+	scanf_s("%d", &n);
+
+	puts("h 입력\n");
+	scanf_s("%d", &h);
+
+
+
+	for (int h_turn = 0; h_turn < max_h; h_turn++) { // 배열 초기화
+		for (int m_turn = 0; m_turn < max_m; m_turn++) { // 배열 초기화
+			for (int n_turn = 0; n_turn < max_n; n_turn++) {
+				arr[h_turn][n_turn][m_turn] = 2;
+			}
+		}
+	}
+	for (int h_turn = 0; h_turn < h; h_turn++) { // 배열 인풋
+		for (int m_turn = 0; m_turn < m; m_turn++) { 
+			for (int n_turn = 0; n_turn < n; n_turn++) {
+					puts("번호 입력\n");
+					scanf_s("%d", &input);
+					arr[h_turn][n_turn][m_turn] = input;
+			}
+		}
+	}
+
+	while (t_count != n * m * h && t_count == -1) { // 끝 판별
+		t_count = 0;
+		for (int h_turn = 0; h_turn < h; h_turn++) { 
+			for (int m_turn = 0; m_turn < m; m_turn++) {  
+				for (int n_turn = 0; n_turn < n; n_turn++) {
+					if (arr[h_turn][n_turn][m_turn] = 1) {
+						t_count += 1;
+					}
+				}
+			}
+		}
+		if (last_t_count == t_count) {
+			t_count = -1;
+		}
+		last_t_count = t_count;
+	}
+	printf("%d", day_count);
+	puts("일이 소모되었습니다.");
+
+}
+
 
 
