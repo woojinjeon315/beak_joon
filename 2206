@@ -652,3 +652,152 @@ void main() {
 	}
 
 }
+
+#include <stdio.h>
+int temp;
+
+int arr[1000][1000];
+int position_list[100][3];
+int movement_list[100];
+
+int n_size = 0;
+int m_size = 0;
+
+int n = 0; // 세로
+int m = 0; // 가로
+
+int	movement_count = 0;
+//int	movement_count_2 = 0;
+
+int f_movement_count = 0;
+int input = 0;
+
+int list_max = 0;
+int l_turn = 0;
+
+int reckoning(int n_2, int m_2, int movement_count_2) {
+	//int 
+	//movement_count_2 = movement_count;
+	//while (n == n_size && m == m_size) {
+		if (m + 1 <= m_size && arr[n][m + 1] == 0) {
+			m += 1;
+			movement_count_2 += 1;
+		}
+		if (n + 1 <= n_size && arr[n + 1][m] == 0) {
+			n += 1;
+			movement_count_2 += 1;
+		}
+		if (n - 1 >= 0 && arr[n - 1][m] == 0) {
+			n += 1;
+			movement_count_2 += 1;
+		}
+		if (m - 1 >= 0 && arr[n][m - 1] == 0) {
+			m += 1;
+			movement_count_2 += 1;
+		}
+	}
+	return movement_count_2;
+}
+
+void sorted() {
+	for (int turn = 0; turn < list_max; turn++) {
+		if (movement_list[turn] > movement_list[turn + 1]) {
+			turn = 0;
+			temp = movement_list[turn];
+			movement_list[turn] = movement_list[turn + 1];
+			movement_list[turn + 1] = temp;
+		}
+	}
+}
+
+void main() {
+	puts("n 입력");
+	scanf_s("%d", &n_size);
+
+	puts("m 입력");
+	scanf_s("%d", &m_size);
+
+	for (int m_turn = 0; m_turn < m_size; m_turn++) { // 배열 초기화
+		for (int n_turn = 0; n_turn < n_size; n_turn++) {
+			arr[n_turn][m_turn] = 2;
+		}
+	}
+
+	for (int turn = 0; turn < 100; turn++) { // 배열 초기화
+		position_list[turn][0] = 0;
+		position_list[turn][1] = 0;
+		position_list[turn][2] = 0;
+	}
+
+	for (int m_turn = 0; m_turn < m; m_turn++) {
+		for (int n_turn = 0; n_turn < n; n_turn++) {
+			puts("번호 입력");
+			scanf_s("%d", &input);
+			arr[n_turn][m_turn] = input;
+		}
+	}
+	while (movement_count == m * n) {
+		if (m + 1 <= m_size && arr[n][m + 1] == 0) {
+			m += 1;
+			position_list[movement_count][0] = n;
+			position_list[movement_count][1] = m;
+			position_list[movement_count][2] = movement_count;
+
+			movement_count += 1;
+		}
+		if (n + 1 <= n_size && arr[n + 1][m] == 0) {
+			n += 1;
+			position_list[movement_count][0] = n;
+			position_list[movement_count][1] = m;
+			position_list[movement_count][2] = movement_count;
+			movement_count += 1;
+		}
+		if (n - 1 >= 0 && arr[n - 1][m] == 0) {
+			n += 1;
+			position_list[movement_count][0] = n;
+			position_list[movement_count][1] = m;
+			position_list[movement_count][2] = movement_count;
+			movement_count += 1;
+		}
+		if (m - 1 >= 0 && arr[n][m - 1] == 0) {
+			m += 1;
+			position_list[movement_count][0] = n;
+			position_list[movement_count][1] = m;
+			position_list[movement_count][2] = movement_count;
+			movement_count += 1;
+		}
+	}
+	list_max = movement_list;
+	f_movement_count = movement_count;
+	//n == n_size && m == m_size
+	while (position_list[l_turn][0] != 0) {
+		n = position_list[l_turn][0];
+		m = position_list[l_turn][1];
+		movement_count = position_list[l_turn][2];
+
+		if (m + 2 <= m_size && arr[n][m + 1] == 1 && arr[n][m + 2] == 0) {
+			m += 2;
+			movement_count += 2;
+			movement_list[l_turn] = reckoning(n, m, movement_count);
+		}
+		if (n + 2 <= n_size && arr[n + 1][m] == 1 && arr[n + 2][m] == 0) {
+			n += 2;
+			movement_list[l_turn] = reckoning(n, m, movement_count);
+		}
+		if (m - 2 >= 0 && arr[n][m - 1] == 1 && arr[n][m - 2] == 0) {
+			m -= 2;
+			movement_list[l_turn] = reckoning(n, m, movement_count);
+		}
+
+		if (n - 2 >= 0 && arr[n - 1][m] == 1 && arr[n - 2][m] == 0) {
+			n -= 2;
+			movement_list[l_turn] = reckoning(n, m, movement_count);
+		}
+
+		//arr[n][m];
+		l_turn += 1;
+	}
+	sorted() ;
+	print("%d", movement_list[0]);
+
+}
