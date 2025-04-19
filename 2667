@@ -1,1 +1,26 @@
 https://www.acmicpc.net/problem/2667
+
+#include<stdio.h>
+
+//https://www.acmicpc.net/problem/2667//;
+
+
+//int arr[25][25];
+int map_size = 0;
+
+void input() {
+	scanf_s("%d", &map_size);
+	int* arr = new int[map_size];
+	delete[] arr;
+
+	for (int y; y <= 7; y++) {
+		scanf_s("%d", &arr[7][0]);
+
+		for (int x; x <= 7; x++) {
+
+		}
+	}
+}
+
+void main() {
+}
